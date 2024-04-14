@@ -41,7 +41,7 @@
 <p>In the NeRV architecture, each video can be represented as <span class="math inline"><em>V</em> = {<em>v</em><sub><em>t</em></sub>}<sub><em>t</em> = 1</sub><sup><em>T</em></sup></span>, with <span class="math inline"><em>v</em><sub><em>t</em></sub>= <em>f</em><sub><em>θ</em></sub>(<em>t</em>)</span>, where the input is the frame index and the output is the RGB image <span class="math inline"><em>v</em><sub><em>t</em></sub></span> (Chen et al., 2021). The encoding function is parameterized by a deep neural network, allowing it to map each input timestamp to the corresponding RGB frame.</p>
 <p>To enhance the network’s ability to capture high-frequency variations in video data, NeRV employs an input embedding technique called Positional Encoding. This mapping function helps improve the network’s performance in fitting data with complex temporal dynamics.</p>
 <p>The NeRV architecture, which is shown in the pictures below, utilises a combination of Multilayer Perceptrons (MLPs) and Convolutional Networks (ConvNets) to efficiently output RGB images. By stacking multiple NeRV blocks and incorporating techniques like PixelShuffle for upscaling, NeRV achieves effective reconstruction while managing parameters efficiently.</p>
-<p><img src="./media/media/image12.png" style="width:4.36979in;height:1.21124in" /> <img src="./media/media/image3.png" style="width:1.32736in;height:1.89518in" /></p>
+<p><img src="./media/image1.png" style="width:4.36979in;height:1.21124in" /> <img src="./media/image7.png" style="width:1.32736in;height:1.89518in" /></p>
 <p>Figure 1: NeRV Architecture (Chen et al. ,2021)</p>
 <p>In terms of optimization, NeRV adopts a combination of L1 and Structural Similarity Index (SSIM) loss functions to train the network. This loss function balances pixel-wise differences between predictor and ground-truth frames, ensuring accurate reconstruction while preserving structural similarity. Furthermore, NeRV explores model compression techniques to reduce the computational and storage overhead associated with video representation. Techniques such as model pruning, weight quantization, and entropy encoding are employed to achieve significant reductions in model size without compromising reconstruction quality.</p>
 <p>Overall, NeRV exploits advanced architectural designs and optimization strategies to offer a promising solution for representing videos as implicit functions within neural networks, showcasing its potential to streamline video processing tasks and facilitate efficient video representation and compression.</p>
@@ -83,38 +83,38 @@
 <p>For the visualisation purposes the newly trained NeRV-S model with GPU P100 was used to produce images for the bunny data. Below in Figures 2 and 3 the obtained visualisations for frames 80 and 110 can be observed together with the corresponding ground truth frames. These specific frames were chosen on purpose to observe some of the NeRV’s characteristics regarding video dynamics.</p>
 <p>Frame 80 presents a static moment where the bunny movements in the neighbouring frames are very limited. Thanks to this, although a small decrease in quality can be observed, the bunny prediction remains really similar to the ground truth.</p>
 <p>On the other hand frame 110 presents a very dynamic situation where the bunny moves his head very rapidly. This results in a very interesting phenomenon where the bunny ears seem to disappear since their position cannot be very well retrieved by the neural network. Thus, when trying to save a video with the NeRV method, it should be noted that one of the NeRV’s disadvantages is processing dynamic moments, which may result in a loss of information in the video output.</p>
-<p><img src="./media/media/image10.png" style="width:3.44169in;height:1.92608in" /><img src="./media/media/image18.png" style="width:3.448in;height:1.9252in" /></p>
+<p><img src="./media/image16.png" style="width:3.44169in;height:1.92608in" /><img src="./media/image15.png" style="width:3.448in;height:1.9252in" /></p>
 <p>Figure 2: Ground truth (left) (Chen et al., 2021) and prediction (right) of NeRV-S (1200 epochs) for bunny frame 80.</p>
-<p><img src="./media/media/image23.png" style="width:3.41996in;height:1.9252in" /><img src="./media/media/image1.png" style="width:3.41996in;height:1.9252in" /></p>
+<p><img src="./media/image11.png" style="width:3.41996in;height:1.9252in" /><img src="./media/image5.png" style="width:3.41996in;height:1.9252in" /></p>
 <p>Figure 3: Ground truth (left) (Chen et al., 2021) and prediction (right) of NeRV-S (1200 epochs) for bunny frame 110.</p>
 <h1 id="nerv-approach-on-cholec80-dataset">NeRV Approach on Cholec80 Dataset</h1>
 <p>After getting NeRV to work on the “Big Bunny Dataset” we tested it on a novel dataset. We used the first 100 frames from the 13th video of the Cholec80 Dataset made by the CAMMA Research Group (Twinanda et al., 2017). This dataset is made of video of cholecystectomy surgeries.</p>
 <p>We first tried training it for only 300 epochs with the same hyperparameters as in the section above. After around an hour of training, this resulted in a PSNR of 31.53 and a MS-SSIM of 0.9563. The visualisation for frame 10 of the NeRV-S on Cholec80 can be seen in Figure 4.</p>
-<p><img src="./media/media/image9.png" style="width:3.42188in;height:1.90422in" /><img src="./media/media/image19.png" style="width:3.36979in;height:1.90145in" /></p>
+<p><img src="./media/image2.png" style="width:3.42188in;height:1.90422in" /><img src="./media/image4.png" style="width:3.36979in;height:1.90145in" /></p>
 <p>Figure 4: Ground truth (left) (Twinanda et al., 2017) and prediction (right) of NeRV-S (300 epochs) for frame 10.</p>
 <p>Although the visualisation for 300 epochs is already capable of presenting numerous details, the NeRV-S model was also trained for 1200 epochs. With this next model, it is possible to compare how much the quality of the image can be improved based on the number of epochs. The visualisation for 1200 epochs is presented in Figure 5.</p>
-<p><img src="./media/media/image9.png" style="width:3.43229in;height:1.93325in" /><img src="./media/media/image17.png" style="width:3.42239in;height:1.92707in" /></p>
+<p><img src="./media/image2.png" style="width:3.43229in;height:1.93325in" /><img src="./media/image27.png" style="width:3.42239in;height:1.92707in" /></p>
 <p>Figure 5: Ground truth (left) (Twinanda et al., 2017) and prediction (right) of NeRV-S (1200 epochs) for frame 10.</p>
 <p>Using the comparison between Figures 4 and 5, it can be stated that the image quality improved with the increased number of epochs. However, this difference can be best observed with great zoom. For this reason, Figure 6 has been provided, where a small glare on one of the tools in the left part of the image is examined. Based on this figure the comparison between ground truth and NeRV-S model for 1200 and 300 epochs can be visualised.</p>
-<p><img src="./media/media/image27.jpg" style="width:2.25521in;height:1.19052in" /><img src="./media/media/image4.jpg" style="width:2.25521in;height:1.18424in" /><img src="./media/media/image11.jpg" style="width:2.23438in;height:1.18537in" /></p>
+<p><img src="./media/image10.jpg" style="width:2.25521in;height:1.19052in" /><img src="./media/image8.jpg" style="width:2.25521in;height:1.18424in" /><img src="./media/image12.jpg" style="width:2.23438in;height:1.18537in" /></p>
 <p>Figure 6: Ground truth (left) (Twinanda et al., 2017), prediction of NeRV-S with 1200 epochs (middle) and with 300 epochs (right) for a small glare of frame 10.</p>
 <p>The subsequent step in the analysis of NeRV-S model was to train it using every second frame. This means that the analysed Cholec80 video was initially extended to 200 frames and was later compressed to 100 using every second frame. After the training, as it was expected, the final PSNR value for this case was lower compared to the subsequent 100 frames scenario. Nevertheless, the quality of the output images still remained very close to the ground truth as seen in Figure 7.</p>
-<p><img src="./media/media/image9.png" style="width:3.44271in;height:1.92875in" /><img src="./media/media/image15.png" style="width:3.41525in;height:1.92365in" /></p>
+<p><img src="./media/image2.png" style="width:3.44271in;height:1.92875in" /><img src="./media/image17.png" style="width:3.41525in;height:1.92365in" /></p>
 <p>Figure 7: Ground truth (left) (Twinanda et al., 2017) and prediction (right) of NeRV-S (1200 epochs, trained on every second frame) for frame 10.</p>
 <p>Now both scenarios for NeRV-S (1200 epochs) of subsequent frames and every second frame training were analysed quantitatively. This was done by creating graphs for PSNR and MS-SSIM with values stated after every 50 epochs. These graphs can be seen in Figure 8 and Figure 9.</p>
 <p>For PSNR evaluation it can be observed that in both scenarios the trend seems to be very similar. The first epochs provide a very steep increase in PSNR reaching about 64% of the final value already after 50 epochs. However, after around 800 epochs this increasing tendency significantly slows down and at 1200 epochs reaches a plateau. Additionally, as it could have been expected, the model trained with every second frame performs slightly worse. It is likely that the increased difficulty arises from greater disparities among subsequent input frames, posing challenges for the model to learn as effectively as before.</p>
 <p>Finally, it should be mentioned that these PSNR values may be affected by the fact that a part of each frame (outside the camera circle) remains always black. Thus, it can be easy to reconstruct this image area with almost 100% accuracy.</p>
-<p><img src="./media/media/image21.png" style="width:6.69729in;height:3.97608in" /></p>
+<p><img src="./media/image26.png" style="width:6.69729in;height:3.97608in" /></p>
 <p>Figure 8: PSNR comparison between NeRV-S trained on subsequent frames and every second frame for 1200 epochs.</p>
 <p>For MS-SSIM the trend is very similar to the PSNR case. The steep increase after the first epochs is followed by a plateau but this time strating much earlier, already around 400 epochs. Also the differences between the two scenarios seem to converge which was not the case in the PSNR graph. Given that MS-SSIM aims to better capture human perception, we would anticipate that both scenarios would generate images that are nearly indistinguishable from one another. Looking back again at Figure 7 and 5 this indeed seems to be the case.</p>
-<p><img src="./media/media/image22.png" style="width:6.68229in;height:4.00552in" /></p>
+<p><img src="./media/image23.png" style="width:6.68229in;height:4.00552in" /></p>
 <p>Figure 9: MS-SSIM comparison between NeRV-S trained on subsequent frames and every second frame for 1200 epochs.</p>
 <h1 id="section"></h1>
 <h1 id="hyperparameters-check">Hyperparameters Check</h1>
 <p><strong>Epochs</strong></p>
-<p>We observe a significant improvement in performance when training for higher epochs. In the figure below, after 300 epochs the PSNR is 30.5, 32.7 after 600 and 33.98 after 1200. However, performance starts to saturate around 1000 epochs and we don’t see any significant improvement later. We recommend using 300 epochs for quick prototyping and testing if one is short on time, as the MS-SSIM scores do not show much improvement post this mark (0.94 at 300 epochs, 0.97 at 1200).</p>
-<p><img src="./media/media/image16.png" style="width:5.52604in;height:3.35864in" /></p>
-<p><img src="./media/media/image26.png" style="width:5.63044in;height:3.42809in" /></p>
+<p>We observe a significant improvement in performance when training for higher epochs. In the figure below, after 300 epochs the PSNR is 30.5, 32.7 after 600 and 33.98 after 1200. However performance starts to saturate around 1000 epochs and we don’t see any significant improvement later. We recommend using 300 epochs for quick prototyping and testing if one is short on time, as the MS-SSIM scores do not show much improvement post this mark (0.94 at 300 epochs, 0.97 at 1200).</p>
+<p><img src="./media/image25.png" style="width:5.52604in;height:3.35864in" /></p>
+<p><img src="./media/image18.png" style="width:5.63044in;height:3.42809in" /></p>
 <p>Figure 10: Performance with longer epochs</p>
 <p><strong>Learning rate</strong></p>
 <p>One of the hyperparameters we attempted to study was the learning rate. We changed the default learning rate from 0.0005 to 0.001 and 0.0002 for 1200 epochs while using cosine annealing. The performance is measured using two metrics - MS-SSIM and PSNR.</p>
@@ -123,7 +123,7 @@
 <p>As shown in figure 11, increasing the default learning rate from 0.0005 to 0.001, does not have a notable effect on our metrics when we train for 1200 epochs. However, when left to train for fewer epochs ~300, training with a higher learning rate results in better MS-SSIM and doesn’t have a notable difference in PSNR. We reckon, this is due to the fundamental difference in these metrics. MS-SSIM is more sensitive to structural information, like humans, unlike PSNR which is a pixel-based metric and doesn’t account for spatial position of pixels in an image.</p>
 <p>One thing to note here is that the learning rate is not constant, it is scheduled by cosine annealing, which steeply increases the rate to peak value and gradually decreases to 0. So the performance is not surprising as a steep increase in learning rate will lead to more rapid change in weights while the cosine scheduler keeps it from diverging, which yields better results with smaller epochs compared to a constant learning rate, more on this later.</p>
 <p>When we decrease the learning rate to 0.0002, the final MS-SSIM indicates slightly worse performance after training for 1200 epochs in both training and validation. It seems this learning rate is not high enough to cause a significant change in weights.</p>
-<p><img src="./media/media/image24.png" style="width:6.01348in;height:3.60609in" /><img src="./media/media/image25.png" style="width:5.91146in;height:3.55098in" /></p>
+<p><img src="./media/image20.png" style="width:6.01348in;height:3.60609in" /><img src="./media/image13.png" style="width:5.91146in;height:3.55098in" /></p>
 <p>Figure 11: Comparison of performance at different learning rates</p>
 <p><strong>MLP dimension</strong></p>
 <p>Varying the Multi-Layer Perceptron serves as a way to check how sensitive the model is to the parameter count. It is expected that lower dimensional models perform worse, but they may be more efficient in size and train time.</p>
@@ -176,20 +176,20 @@
 </table>
 <p>Table 2: MLP dimensionality vs performance and train time</p>
 <p>PSNR vs number of parameters</p>
-<p><img src="./media/media/image7.png" style="width:4.85656in;height:3in" alt="Points scored" /></p>
+<p><img src="./media/image14.png" style="width:4.85656in;height:3in" alt="Points scored" /></p>
 <p>Figure 12: PSNR vs number of parameters for NeRV.</p>
-<p>As expected, lower parameter counts result in lower PSNR and ms-ssim results. Although it seems to lower linearly, the curve is expected to be similar to a logarithm. More runs with even lower dimensionality should be attempted to check this hypothesis.</p>
+<p>As expected, lower parameter counts result in lower PSNR and MS-SSIM results. Although it seems to lower linearly, the curve is expected to be similar to a logarithm. More runs with even lower dimensionality should be attempted to check this hypothesis.</p>
 <p>It has been observed that the train time remains similar on all models. This is unexpected, as the bigger models are several times larger, and are expected to take more time to train. Instead, only the VRAM required changes between models, with a very small % extra train time. This behavior is indicative that something unrelated to the MLP is taking the majority of the train time. A way to check this is by calculating the cumulative time of the different blocks in the network.</p>
 <h1 id="section-1"></h1>
 <h1 id="trying-a-new-algorithm-variant">Trying a New Algorithm Variant</h1>
 <p><strong>Activation function</strong></p>
 <p>To understand the differences that the activation function makes, we tried to train the model on the “Big Bunny Dataset” with the same hyperparameters as in the reproduction section but for a shortened time, 300 epochs, changing the activation functions. We tried ReLU, SiLU and softplus.</p>
-<p><img src="./media/media/image20.png" style="width:3.41146in;height:2.0382in" /><img src="./media/media/image14.png" style="width:3.40155in;height:2.03937in" /></p>
+<p><img src="./media/image19.png" style="width:3.41146in;height:2.0382in" /><img src="./media/image22.png" style="width:3.40155in;height:2.03937in" /></p>
 <p>Figure 13: PSNR and MS-SSIM activation functions comparison</p>
 <p>As we can see from the graphs above the activation function does not have a big influence on the results for both the PSNR and the MS-SSIM. The only difference is that for the SiLU the PSNR at the end of the training is slightly higher which makes us understand why the authors decided to use that activation function.</p>
 <p><strong>Loss function</strong></p>
 <p>By default, NeRV uses a combination of an L1 and SSID loss function, called "Fusion6" internally. The paper does not go in-depth on why this is the case. Therefore, it is interesting to check the differences between using L1 on the loss vs not using it. On figure 14, we plot the PSNR vs epochs of both approaches.</p>
-<p><img src="./media/media/image13.png" style="width:5.59375in;height:3.53689in" /></p>
+<p><img src="./media/image24.png" style="width:5.59375in;height:3.53689in" /></p>
 <p>Figure 14: PSNR vs epochs (Steps) for SSID loss vs Fusion 6 loss.</p>
 <table>
 <thead>
@@ -212,13 +212,13 @@
 </tr>
 </tbody>
 </table>
-<p>Table 3: PSNR and ms-ssim for the different loss functions.</p>
-<h1 id="its-apparent-that-the-addition-of-the-l1-loss-quite-drastically-increases-the-performance-of-the-model.-therefore-we-can-conclude-that-the-addition-of-the-l1-to-the-fusion-loss-is-a-good-approach.">It's apparent that the addition of the L1 loss quite drastically increases the performance of the model. Therefore we can conclude that the addition of the L1 to the "fusion" loss is a good approach. </h1>
+<p>Table 3: PSNR and MS-SSIM for the different loss functions.</p>
+<p>It's apparent that the addition of the L1 loss quite drastically increases the performance of the model. Therefore we can conclude that the addition of the L1 to the "fusion" loss is a good approach. </p>
 <h1 id="ablation">Ablation</h1>
 <p><strong>Cosine scheduled vs constant learning rate</strong></p>
 <p>We compared performance by replacing the cosine scheduler with a constant learning rate for 1200 epochs. The paper originally uses cosine learning rate scheduler, which oscillates between 0 and the default learning rate (0.0005) allowing the network to move out of a local minima and find better weights for convergence. However, the scheduler goes through only one oscillation, perhaps to get the best of both exploration and exploitation, while avoiding overshooting as we get closer to convergence. Both the metrics converge at a higher value in case of cosine scheduler compared to a constant learning rate.</p>
-<p><img src="./media/media/image2.png" style="width:5.70203in;height:3.58661in" /></p>
-<p><img src="./media/media/image8.png" style="width:5.71427in;height:3.59038in" /></p>
+<p><img src="./media/image9.png" style="width:5.70203in;height:3.58661in" /></p>
+<p><img src="./media/image21.png" style="width:5.71427in;height:3.59038in" /></p>
 <p>Figure 15: Performance comparison between constant and scheduled learning rate</p>
 <h1 id="discussion">Discussion</h1>
 <p>When reproducing the paper, we found the PSNR numbers from the original paper to be quite accurate with our results (34.03 PSNR) being only 0.5% lower. The runs between the team members on the reproduction yield practically the same results (+- 0.03 PSNR), therefore the model converges quite consistently to the same values. When using NeRV-S with the Cholec80 data, we have seen that the results are remarkably good, even when only training every second frame. Only when zooming in substantially, the differences between the 300 and the 1200 epochs are visible.</p>
@@ -242,7 +242,7 @@
 <p>Building an L1 vs SSIM graph to find the optimal ratio of losses.</p>
 </blockquote></li>
 </ul>
-<p>References</p>
+<p><strong>References</strong></p>
 <ul>
 <li><blockquote>
 <p>Chen, H., He, B., Wang, H., Ren, Y., Lim, S.-N., &amp; Shrivastava, A. (2021). NeRV: Neural Representations for Videos. [Preprint]. arXiv:2110.13903.</p>
